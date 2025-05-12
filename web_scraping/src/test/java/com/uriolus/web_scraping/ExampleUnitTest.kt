@@ -1,8 +1,11 @@
 package com.uriolus.web_scraping
 
+import com.uriolus.recipies.extractor.RecipeExtractor
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
-import java.io.IOException
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -55,5 +58,40 @@ class ExampleUnitTest {
         assertEquals("", text, "Text should be empty for a failed connection.")
         val images = parser.getImageUrls()
         assertTrue(images.isEmpty(), "Image list should be empty for a failed connection.")
+    }
+
+    // Test for RecipeExtractor
+    @Test
+    fun `RecipeExtractor extracts data from URL`() {
+        val recipeUrl = "https://www.lecturas.com/recetas/bacalao-a-portuguesa-a-bras_3299.html"
+        println("Testing RecipeExtractor with URL: $recipeUrl")
+
+        val extractor = RecipeExtractor(recipeUrl)
+        val recipeData = extractor.extractRecipeData()
+
+        assertNotNull(recipeData, "RecipeData should not be null.")
+        if (recipeData == null) return // Guard for smart casting
+
+        println("Extracted Recipe Data:")
+        println("  Title: ${recipeData.title}")
+        println("  Main Image URL: ${recipeData.mainImageUrl}")
+        println("  Description (first 100 chars): ${recipeData.description?.take(100)}...")
+        println("  Ingredients (${recipeData.ingredients.size}):")
+        recipeData.ingredients.take(5).forEach { println("    - $it") }
+        if (recipeData.ingredients.size > 5) println("    ...")
+        println("  Instructions (${recipeData.instructions.size}):")
+        recipeData.instructions.take(3).forEach { println("    - $it") }
+        if (recipeData.instructions.size > 3) println("    ...")
+        // println("  Full Page Text (first 200 chars): ${recipeData.fullPageText?.take(200)}...")
+
+        assertNotNull(recipeData.title, "Recipe title should not be null.")
+        assertTrue(recipeData.title!!.isNotBlank(), "Recipe title should not be blank.")
+
+        assertNotNull(recipeData.mainImageUrl, "Recipe main image URL should not be null.")
+        assertTrue(recipeData.mainImageUrl!!.startsWith("http"), "Recipe main image URL should be a valid URL.")
+        
+        // This site (lecturas.com) provides good JSON-LD, so ingredients and instructions should ideally be found
+        assertTrue(recipeData.ingredients.isNotEmpty(), "Ingredients list should not be empty for this URL.")
+        assertTrue(recipeData.instructions.isNotEmpty(), "Instructions list should not be empty for this URL.")
     }
 }
