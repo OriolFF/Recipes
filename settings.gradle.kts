@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Recipies"
 include(":app")
- 
+include(":web_scraping")
