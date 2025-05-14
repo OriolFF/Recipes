@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.uriolus.recipies"
+    namespace = "com.uriolus.recipes"
     compileSdk = 35
 
     defaultConfig {
@@ -44,26 +44,26 @@ android {
 dependencies {
     // AndroidX Core
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx.v290)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     
     // Compose
-    implementation(platform(libs.androidx.compose.bom.v20240900))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.material3)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.material3)
     
     // Kotlin Coroutines
-    implementation(libs.kotlinx.coroutines.core.v180)
-    implementation(libs.kotlinx.coroutines.android.v180)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
     
     // Ktor
-    implementation(libs.ktor.client.core.v239)
-    implementation(libs.ktor.client.android.v239)
-    implementation(libs.ktor.client.content.negotiation.v239)
-    implementation(libs.ktor.serialization.kotlinx.json.v239)
-    implementation(libs.ktor.client.logging.v239)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.logging)
     
     // Hilt (Dagger)
     implementation(libs.hilt.android)
@@ -71,20 +71,20 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     
     // Navigation
-    implementation(libs.androidx.navigation.compose.v277)
+    implementation(libs.androidx.navigation.compose)
     
     // ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.compose.v290)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     
     // Image loading
     implementation(libs.coil.compose)
     
     // Testing
-    testImplementation(libs.junit)
+    testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom.v20250500))
-    androidTestImplementation(libs.ui.test.junit4)
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 }

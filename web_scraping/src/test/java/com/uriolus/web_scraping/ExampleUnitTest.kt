@@ -1,6 +1,6 @@
 package com.uriolus.web_scraping
 
-import com.uriolus.recipies.extractor.RecipeExtractor
+import com.uriolus.recipes.extractor.RecipeExtractor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull

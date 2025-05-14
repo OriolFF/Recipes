@@ -42,7 +42,6 @@ dependencies {
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params) // For parameterized tests, if needed
     testRuntimeOnly(libs.junit.jupiter.engine)
-
 }
 
 // Configure the test task to use JUnit Platform for JUnit 5
