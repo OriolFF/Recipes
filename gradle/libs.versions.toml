@@ -1,10 +1,23 @@
 [versions]
 agp = "8.9.2"
+androidxComposeBom = "2025.05.00"
+composeBomVersion = "2024.09.00"
+jsoup = "1.17.2"
+junitJupiterApi = "5.11.0"
+junitJupiterEngine = "5.11.0"
+junitJupiterParams = "5.11.0"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+kotlinxCoroutinesAndroid = "1.8.0"
+kotlinxCoroutinesCore = "1.8.0"
+ktorClientAndroid = "2.3.9"
+ktorClientContentNegotiation = "2.3.9"
+ktorClientCore = "2.3.9"
+ktorClientLogging = "2.3.9"
+ktorSerializationKotlinxJson = "2.3.9"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2025.04.01"
@@ -13,12 +26,23 @@ ktor = "2.3.10"
 hilt = "2.51"
 hiltNavigationCompose = "1.2.0"
 coil = "2.6.0"
+lifecycleRuntimeKtxVersion = "2.9.0"
+lifecycleViewmodelCompose = "2.9.0"
 navigation = "2.8.9"
 lifecycle = "2.8.7"
 composeCompilerGradlePlugin = "2.0.21"
+appcompat = "1.6.1"
+material = "1.10.0"
+navigationCompose = "2.7.7"
 
 [libraries]
+androidx-compose-bom-v20240900 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
+androidx-compose-bom-v20250500 = { module = "androidx.compose:compose-bom", version.ref = "androidxComposeBom" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx-v290 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
+androidx-lifecycle-viewmodel-compose-v290 = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+androidx-navigation-compose-v277 = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -32,6 +56,18 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiterApi" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiterEngine" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiterParams" }
+kotlinx-coroutines-android-v180 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlinx-coroutines-core-v180 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+ktor-client-android-v239 = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
+ktor-client-content-negotiation-v239 = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientContentNegotiation" }
+ktor-client-core-v239 = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-logging-v239 = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientLogging" }
+ktor-serialization-kotlinx-json-v239 = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # Kotlin Coroutines
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -54,8 +90,17 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 compose-compiler-gradle-plugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "composeCompilerGradlePlugin" }
+material3 = { module = "androidx.compose.material3:material3" }
+ui = { module = "androidx.compose.ui:ui" }
+ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+

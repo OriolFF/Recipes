@@ -43,48 +43,48 @@ android {
 
 dependencies {
     // AndroidX Core
-    implementation("androidx.core:core-ktx:1.16.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-    implementation("androidx.activity:activity-compose:1.10.1")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v290)
+    implementation(libs.androidx.activity.compose)
     
     // Compose
-    implementation(platform("androidx.compose:compose-bom:2024.09.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
+    implementation(platform(libs.androidx.compose.bom.v20240900))
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling.preview)
+    implementation(libs.material3)
     
     // Kotlin Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+    implementation(libs.kotlinx.coroutines.core.v180)
+    implementation(libs.kotlinx.coroutines.android.v180)
     
     // Ktor
-    implementation("io.ktor:ktor-client-core:2.3.9")
-    implementation("io.ktor:ktor-client-android:2.3.9")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.9")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.9")
-    implementation("io.ktor:ktor-client-logging:2.3.9")
+    implementation(libs.ktor.client.core.v239)
+    implementation(libs.ktor.client.android.v239)
+    implementation(libs.ktor.client.content.negotiation.v239)
+    implementation(libs.ktor.serialization.kotlinx.json.v239)
+    implementation(libs.ktor.client.logging.v239)
     
     // Hilt (Dagger)
-    implementation("com.google.dagger:hilt-android:2.51")
-    kapt("com.google.dagger:hilt-android-compiler:2.51")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
     
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation(libs.androidx.navigation.compose.v277)
     
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation(libs.androidx.lifecycle.viewmodel.compose.v290)
     
     // Image loading
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(libs.coil.compose)
     
     // Testing
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom.v20250500))
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
 }
