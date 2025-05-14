@@ -65,6 +65,11 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.logging)
     
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
+    
     // Hilt (Dagger)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.uriolus.recipes.feature.links_list.presentation.screen.LinksListScreen
 import com.uriolus.recipes.feature.recipe_detail.presentation.screen.RecipeDetailScreen
 import com.uriolus.recipes.feature.recipe_list.presentation.screen.RecipeListScreen
 import com.uriolus.recipes.ui.theme.RecipiesTheme
@@ -49,8 +50,15 @@ fun RecipeApp() {
             RecipeListScreen(
                 onNavigateToRecipeDetail = { recipeId ->
                     navController.navigate("recipe_detail/$recipeId")
+                },
+                onNavigateToLinksList = {
+                    navController.navigate("links_list")
                 }
             )
+        }
+        
+        composable(route = "links_list") {
+            LinksListScreen()
         }
         
         composable(

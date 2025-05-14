@@ -19,9 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.uriolus.recipes.R
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
 import com.uriolus.recipes.feature.recipe_list.presentation.components.RecipeList
 import com.uriolus.recipes.feature.recipe_list.presentation.state.RecipeListAction
@@ -33,6 +35,7 @@ import com.uriolus.recipes.ui.theme.RecipiesTheme
 @Composable
 fun RecipeListScreen(
     onNavigateToRecipeDetail: (String) -> Unit,
+    onNavigateToLinksList: () -> Unit,
     viewModel: RecipeListViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -44,7 +47,8 @@ fun RecipeListScreen(
             onNavigateToRecipeDetail(recipeId)
         },
         onSearchClick = { /* TODO: Implement search */ },
-        onAddRecipeClick = { /* TODO: Implement add recipe */ }
+        onAddRecipeClick = { /* TODO: Implement add recipe */ },
+        onLinksListClick = onNavigateToLinksList
     )
 }
 
@@ -54,7 +58,8 @@ fun RecipeListScreenContent(
     state: RecipeListState,
     onRecipeClick: (String) -> Unit,
     onSearchClick: () -> Unit,
-    onAddRecipeClick: () -> Unit
+    onAddRecipeClick: () -> Unit,
+    onLinksListClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -72,6 +77,13 @@ fun RecipeListScreenContent(
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 actions = {
+                    IconButton(onClick = onLinksListClick) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_link),
+                            contentDescription = "Recipe Links",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     IconButton(onClick = onSearchClick) {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -139,41 +151,9 @@ fun RecipeListScreenPreview() {
             ),
             onRecipeClick = {},
             onSearchClick = {},
-            onAddRecipeClick = {}
+            onAddRecipeClick = {},
+            onLinksListClick = {}
         )
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun RecipeListScreenLoadingPreview() {
-    RecipiesTheme {
-        RecipeListScreenContent(
-            state = RecipeListState(
-                recipes = emptyList(),
-                isLoading = true,
-                error = null
-            ),
-            onRecipeClick = {},
-            onSearchClick = {},
-            onAddRecipeClick = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RecipeListScreenErrorPreview() {
-    RecipiesTheme {
-        RecipeListScreenContent(
-            state = RecipeListState(
-                recipes = emptyList(),
-                isLoading = false,
-                error = "Failed to load recipes. Please check your internet connection."
-            ),
-            onRecipeClick = {},
-            onSearchClick = {},
-            onAddRecipeClick = {}
-        )
-    }
-}
