@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <group
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:translateX="192"
+        android:translateY="192">
+        
+        <!-- Plate Circle -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M480,220C353.9,220 252,321.9 252,448C252,574.1 353.9,676 480,676C606.1,676 708,574.1 708,448C708,321.9 606.1,220 480,220ZM480,260C584.1,260 668,343.9 668,448C668,552.1 584.1,636 480,636C375.9,636 292,552.1 292,448C292,343.9 375.9,260 480,260Z" />
+        
+        <!-- Fork -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M400,350L400,546C400,546 400,546 400,546L420,546C420,546 420,546 420,546L420,350L440,350L440,380L460,380L460,350L480,350L480,380L500,380L500,350L400,350Z" />
+        
+        <!-- Knife -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M560,350C560,350 540,350 540,370L540,546L560,546L560,370L580,370L580,546L600,546L600,370C600,350 580,350 580,350L560,350Z" />
+        
+        <!-- Steam Lines -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M420,300C420,300 440,280 460,300C480,320 500,300 500,300" 
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="12"
+            android:strokeLineCap="round"/>
+            
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M460,270C460,270 480,250 500,270C520,290 540,270 540,270" 
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="12"
+            android:strokeLineCap="round"/>
+    </group>
+</vector>
