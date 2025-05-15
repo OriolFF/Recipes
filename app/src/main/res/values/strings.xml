@@ -14,4 +14,8 @@
     <string name="select_image_button">Select This Image</string>
     <string name="cancel_button">Cancel</string>
     <string name="error_analyzing_website">Error analyzing website</string>
+    
+    <!-- Recipe List Feature -->
+    <string name="recipe_list_title">Recipes</string>
+    <string name="no_recipes_message">No recipes available. Add some links first!</string>
 </resources>

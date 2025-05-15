@@ -1,8 +1,8 @@
 package com.uriolus.recipes.feature.recipe_list.di
 
 import com.uriolus.recipes.feature.recipe_list.data.repository.RecipeRepositoryImpl
-import com.uriolus.recipes.feature.recipe_list.data.source.MockRecipeDataSource
 import com.uriolus.recipes.feature.recipe_list.data.source.RecipeDataSource
+import com.uriolus.recipes.feature.recipe_list.data.source.RoomRecipeDataSource
 import com.uriolus.recipes.feature.recipe_list.domain.repository.RecipeRepository
 import dagger.Binds
 import dagger.Module
@@ -23,6 +23,6 @@ abstract class RecipeListModule {
     @Binds
     @Singleton
     abstract fun bindRecipeDataSource(
-        mockRecipeDataSource: MockRecipeDataSource
+        roomRecipeDataSource: RoomRecipeDataSource
     ): RecipeDataSource
 }

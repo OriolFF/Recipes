@@ -12,6 +12,11 @@ Ktor
 hilt
 jetpack compose
 
+# For testing
+mockk 
+Junit5
+turbine
+
 # Architecture
 
 MVI , Clean code, with a presentation layer, a domain layer and a data layer. with a package per feature
