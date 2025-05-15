@@ -28,7 +28,7 @@ import com.uriolus.recipes.feature.links_list.domain.model.RecipeLink
 
 @Composable
 fun RecipeLinkItem(
-    recipeLink: RecipeLink,
+    link: RecipeLink,
     onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -37,7 +37,7 @@ fun RecipeLinkItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { uriHandler.openUri(recipeLink.url) }
+            .clickable { uriHandler.openUri(link.url) }
             .padding(8.dp)
     ) {
         Row(
@@ -46,10 +46,10 @@ fun RecipeLinkItem(
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (recipeLink.thumbnailUrl.isNotEmpty()) {
+            if (link.thumbnailUrl.isNotEmpty()) {
                 AsyncImage(
-                    model = recipeLink.thumbnailUrl,
-                    contentDescription = recipeLink.title,
+                    model = link.thumbnailUrl,
+                    contentDescription = link.title,
                     modifier = Modifier.size(80.dp),
                     contentScale = ContentScale.Crop
                 )
@@ -60,16 +60,16 @@ fun RecipeLinkItem(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = recipeLink.title,
+                    text = link.title,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 
-                if (recipeLink.description.isNotEmpty()) {
+                if (link.description.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = recipeLink.description,
+                        text = link.description,
                         style = MaterialTheme.typography.bodyMedium,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis

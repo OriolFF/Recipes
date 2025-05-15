@@ -8,5 +8,9 @@ data class LinksListState(
     val error: String? = null,
     val newLinkUrl: String = "",
     val newLinkTitle: String = "",
-    val isAddingLink: Boolean = false
+    val isAddingLink: Boolean = false,
+    val isAnalyzingWebsite: Boolean = false,
+    val extractedImages: List<String> = emptyList(),
+    val selectedThumbnailUrl: String = "",
+    val showImageSelectionDialog: Boolean = false
 )

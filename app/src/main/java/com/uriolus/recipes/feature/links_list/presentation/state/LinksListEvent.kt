@@ -9,4 +9,7 @@ sealed class LinksListEvent {
     data class OnTitleChange(val title: String) : LinksListEvent()
     data object OnAddLink : LinksListEvent()
     data object DismissError : LinksListEvent()
+    data object AnalyzeWebsite : LinksListEvent()
+    data class SelectThumbnail(val url: String) : LinksListEvent()
+    data object CloseImageSelectionDialog : LinksListEvent()
 }

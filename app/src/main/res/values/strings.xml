@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Recipies</string>
+    
+    <!-- Links List Feature -->
+    <string name="links_list_title">Recipe Links</string>
+    <string name="recipe_url_label">Recipe URL</string>
+    <string name="recipe_title_label">Recipe Title</string>
+    <string name="add_link_button">Add Link</string>
+    <string name="no_links_message">No recipe links yet. Add your first one!</string>
+    <string name="analyze_website_button">Analyze Website</string>
+    <string name="select_thumbnail_title">Select Thumbnail</string>
+    <string name="no_images_found">No images found on this website</string>
+    <string name="loading_images">Loading images from website…</string>
+    <string name="select_image_button">Select This Image</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="error_analyzing_website">Error analyzing website</string>
 </resources>

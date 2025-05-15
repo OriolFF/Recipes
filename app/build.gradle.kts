@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.uriolus.recipies"
-        minSdk = 27
+        minSdk = 28
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -83,6 +83,9 @@ dependencies {
     
     // Image loading
     implementation(libs.coil.compose)
+    
+    // Web scraping module
+    implementation(project(":web_scraping"))
     
     // Testing
     testImplementation(libs.junit4)

@@ -7,6 +7,10 @@ import javax.inject.Inject
 class AddLinkUseCase @Inject constructor(
     private val repository: RecipeLinkRepository
 ) {
+    suspend operator fun invoke(recipeLink: RecipeLink): Long {
+        return repository.insertLink(recipeLink)
+    }
+    
     suspend operator fun invoke(url: String, title: String, description: String = "", thumbnailUrl: String = ""): Long {
         val link = RecipeLink(
             url = url,
