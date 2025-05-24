@@ -29,47 +29,91 @@ class RoomRecipeDataSource @Inject constructor(
     }
     
     private fun extractIngredientsAndInstructions(description: String): Pair<List<String>, List<String>> {
-        // This is a simple implementation that tries to extract ingredients and instructions
-        // from the description based on common patterns
-        val lines = description.split("\n", "\r\n")
-        
         val ingredients = mutableListOf<String>()
         val instructions = mutableListOf<String>()
         
-        var currentSection = ""
+        // Split the description into sections
+        val sections = description.split("\n\n")
         
-        for (line in lines) {
-            val trimmedLine = line.trim()
-            
+        // Look for ingredients and instructions sections
+        for (section in sections) {
             when {
-                trimmedLine.isEmpty() -> continue
-                
-                trimmedLine.contains("ingredient", ignoreCase = true) || 
-                trimmedLine.contains("you need", ignoreCase = true) ||
-                trimmedLine.contains("you'll need", ignoreCase = true) -> {
-                    currentSection = "ingredients"
+                section.startsWith("Ingredients:", ignoreCase = true) -> {
+                    // Extract ingredients
+                    val lines = section.lines().drop(1) // Skip the "Ingredients:" header
+                    for (line in lines) {
+                        val trimmedLine = line.trim()
+                        if (trimmedLine.isNotEmpty()) {
+                            // Handle bullet points or numbered lists
+                            val ingredient = when {
+                                trimmedLine.startsWith("- ") -> trimmedLine.substring(2)
+                                trimmedLine.startsWith("• ") -> trimmedLine.substring(2)
+                                else -> trimmedLine
+                            }
+                            ingredients.add(ingredient)
+                        }
+                    }
                 }
-                
-                trimmedLine.contains("instruction", ignoreCase = true) || 
-                trimmedLine.contains("direction", ignoreCase = true) ||
-                trimmedLine.contains("step", ignoreCase = true) ||
-                trimmedLine.contains("method", ignoreCase = true) -> {
-                    currentSection = "instructions"
-                }
-                
-                trimmedLine.startsWith("-") || trimmedLine.startsWith("•") || 
-                (trimmedLine.length > 2 && trimmedLine[0].isDigit() && trimmedLine[1] == '.') -> {
-                    val content = trimmedLine.substring(trimmedLine.indexOfFirst { it == ' ' } + 1)
-                    if (currentSection == "ingredients") {
-                        ingredients.add(content)
-                    } else if (currentSection == "instructions") {
-                        instructions.add(content)
+                section.startsWith("Instructions:", ignoreCase = true) -> {
+                    // Extract instructions
+                    val lines = section.lines().drop(1) // Skip the "Instructions:" header
+                    for (line in lines) {
+                        val trimmedLine = line.trim()
+                        if (trimmedLine.isNotEmpty()) {
+                            // Handle numbered lists
+                            val instruction = when {
+                                trimmedLine.matches(Regex("^\\d+\\.\\s+.*$")) -> {
+                                    val dotIndex = trimmedLine.indexOf('.')
+                                    trimmedLine.substring(dotIndex + 1).trim()
+                                }
+                                else -> trimmedLine
+                            }
+                            instructions.add(instruction)
+                        }
                     }
                 }
             }
         }
         
-        // If we couldn't extract any structured data, provide some default placeholders
+        // If no structured sections were found, try the original approach
+        if (ingredients.isEmpty() && instructions.isEmpty()) {
+            val lines = description.split("\n", "\r\n")
+            
+            var currentSection = ""
+            
+            for (line in lines) {
+                val trimmedLine = line.trim()
+                
+                when {
+                    trimmedLine.isEmpty() -> continue
+                    
+                    trimmedLine.contains("ingredient", ignoreCase = true) || 
+                    trimmedLine.contains("you need", ignoreCase = true) ||
+                    trimmedLine.contains("you'll need", ignoreCase = true) -> {
+                        currentSection = "ingredients"
+                    }
+                    
+                    trimmedLine.contains("instruction", ignoreCase = true) || 
+                    trimmedLine.contains("direction", ignoreCase = true) ||
+                    trimmedLine.contains("step", ignoreCase = true) ||
+                    trimmedLine.contains("method", ignoreCase = true) -> {
+                        currentSection = "instructions"
+                    }
+                    
+                    trimmedLine.startsWith("-") || trimmedLine.startsWith("•") || 
+                    (trimmedLine.length > 2 && trimmedLine[0].isDigit() && trimmedLine[1] == '.') -> {
+                        val content = trimmedLine.substring(trimmedLine.indexOfFirst { it == ' ' } + 1)
+                        if (currentSection == "ingredients") {
+                            ingredients.add(content)
+                        } else if (currentSection == "instructions") {
+                            instructions.add(content)
+                        }
+                    }
+                }
+            }
+        }
+        
+        // If we still couldn't extract any structured data, provide some default placeholders
         if (ingredients.isEmpty()) {
             ingredients.add("No ingredients information available")
         }
