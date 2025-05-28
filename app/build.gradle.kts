@@ -1,8 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.kotlin.compose.compiler)
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -38,9 +40,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
-    }
     
     // Configure JUnit 5 test runner
     tasks.withType<Test> {
@@ -48,11 +47,13 @@ android {
     }
 }
 
+
 configurations.all {
     resolutionStrategy.force("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
     resolutionStrategy.force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22")
     resolutionStrategy.force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22")
 }
+
 
 dependencies {
     // AndroidX Core
@@ -99,6 +100,10 @@ dependencies {
     
     // Web scraping module
     implementation(project(":web_scraping"))
+    
+    // Serialization
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.protobuf)
     
     // Testing
     testImplementation(libs.junit.jupiter.api)

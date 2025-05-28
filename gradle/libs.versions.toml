@@ -1,9 +1,10 @@
 [versions]
 # Android & Gradle
 agp = "8.10.0"
-kotlin = "1.9.22"
-ksp = "1.9.22-1.0.16"
-compose = "1.6.0"
+kotlin = "2.0.21"
+ksp = "2.0.21-1.0.25"
+compose = "1.6.2"
+kotlinx-serialization = "1.7.3"
 
 # AndroidX Core
 coreKtx = "1.16.0"
@@ -11,7 +12,7 @@ appcompat = "1.7.0"
 material = "1.12.0"
 
 # Compose
-composeBom = "2025.05.00"
+composeBom = "2025.05.01"
 activityCompose = "1.10.1"
 
 # Lifecycle
@@ -74,6 +75,10 @@ kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 
+# Serialization
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinx-serialization" }
+
 # Ktor
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
@@ -87,7 +92,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 # Testing
-junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
+
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitExt" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junitJupiter" }
@@ -109,5 +114,7 @@ jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+kotlin-compose = { id = "org.jetbrains.compose", version.ref = "compose" } # This is likely for Compose Multiplatform or other JetBrains Compose targets
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" } # Added for Android Compose with Kotlin 2.0+
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

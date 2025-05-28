@@ -5,4 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface RecipeRepository {
     fun getRecipes(): Flow<List<Recipe>>
+    
+    suspend fun extractRecipeFromUrl(url: String): Recipe?
 }
