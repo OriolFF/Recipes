@@ -10,6 +10,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.FormDataContent
+import io.ktor.client.request.forms.submitForm
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.flow.firstOrNull
@@ -50,19 +51,19 @@ class RecipeApiClient @Inject constructor(private val tokenStorageManager: Token
         }
     }
     
-    private val baseUrl = "http://localhost:8000" // This should be configurable for different environments
+    private val baseUrl = "http://10.0.2.2:8000" // This should be configurable for different environments
     
     /**
      * Authenticate user and get an access token
      */
     suspend fun login(username: String, password: String): TokenResponse {
-        return client.post("$baseUrl/token") {
-            contentType(ContentType.Application.FormUrlEncoded)
-            setBody(Parameters.build {
+        return client.submitForm(
+            url = "$baseUrl/token",
+            formParameters = Parameters.build {
                 append("username", username)
                 append("password", password)
-            })
-        }.body()
+            }
+        ).body()
     }
 
     /**

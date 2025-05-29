@@ -3,6 +3,7 @@ package com.uriolus.recipes.feature.auth.presentation
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.uriolus.recipes.core.common.Resource
 import com.uriolus.recipes.core.data.remote.dto.TokenResponse
@@ -57,6 +58,7 @@ class LoginViewModel @Inject constructor(
                     // Navigation is handled by the LoginScreen's onLoginSuccess callback
                 }
                 is Resource.Error -> {
+                    Log.e("LoginViewModel", "Login failed: ${result.message}")
                     _loginState.value = LoginState(error = result.message)
                 }
                 is Resource.Loading -> {
