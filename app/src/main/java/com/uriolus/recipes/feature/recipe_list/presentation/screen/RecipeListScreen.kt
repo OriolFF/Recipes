@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,13 +17,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.uriolus.recipes.NavRoutes
 import com.uriolus.recipes.R
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
 import com.uriolus.recipes.feature.recipe_list.presentation.components.RecipeList
@@ -34,11 +40,30 @@ import com.uriolus.recipes.ui.theme.RecipiesTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeListScreen(
+    navController: NavController,
     onNavigateToRecipeDetail: (String) -> Unit,
     onNavigateToLinksList: () -> Unit,
     viewModel: RecipeListViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(state.logoutRequested) {
+        if (state.logoutRequested) {
+            navController.navigate(NavRoutes.LOGIN) {
+                popUpTo(NavRoutes.RECIPE_LIST) { inclusive = true } // Or popUpTo(0) to clear all
+            }
+            viewModel.onLogoutHandled() // Reset the flag
+        }
+    }
+
+    LaunchedEffect(state.authenticationErrorOccurred) {
+        if (state.authenticationErrorOccurred) {
+            navController.navigate(NavRoutes.LOGIN) {
+                popUpTo(NavRoutes.RECIPE_LIST) { inclusive = true }
+            }
+            viewModel.onAuthenticationErrorHandled() // Reset the flag
+        }
+    }
     
     RecipeListScreenContent(
         state = state,
@@ -48,7 +73,10 @@ fun RecipeListScreen(
         },
         onSearchClick = { /* TODO: Implement search */ },
         onAddRecipeClick = { /* TODO: Implement add recipe */ },
-        onLinksListClick = onNavigateToLinksList
+        onLinksListClick = onNavigateToLinksList,
+        onLogoutClick = {
+            viewModel.handleAction(RecipeListAction.LogoutClicked)
+        }
     )
 }
 
@@ -59,7 +87,8 @@ fun RecipeListScreenContent(
     onRecipeClick: (String) -> Unit,
     onSearchClick: () -> Unit,
     onAddRecipeClick: () -> Unit,
-    onLinksListClick: () -> Unit
+    onLinksListClick: () -> Unit,
+    onLogoutClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -88,6 +117,13 @@ fun RecipeListScreenContent(
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "Search recipes",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    IconButton(onClick = onLogoutClick) {
+                        Icon(
+                            imageVector = Icons.Default.ExitToApp,
+                            contentDescription = stringResource(id = R.string.logout_button_description),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -152,8 +188,8 @@ fun RecipeListScreenPreview() {
             onRecipeClick = {},
             onSearchClick = {},
             onAddRecipeClick = {},
-            onLinksListClick = {}
+            onLinksListClick = {},
+            onLogoutClick = {}
         )
     }
 }
-

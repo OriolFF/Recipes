@@ -18,4 +18,13 @@
     <!-- Recipe List Feature -->
     <string name="recipe_list_title">Recipes</string>
     <string name="no_recipes_message">No recipes available. Add some links first!</string>
+
+    <!-- Login Feature -->
+    <string name="login_title">Login</string>
+    <string name="login_username_label">Username</string>
+    <string name="login_password_label">Password</string>
+    <string name="login_button_text">Login</string>
+
+    <!-- Logout -->
+    <string name="logout_button_description">Logout</string>
 </resources>

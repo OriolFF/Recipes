@@ -13,7 +13,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.uriolus.recipes.feature.auth.presentation.LoginScreen
 import com.uriolus.recipes.feature.links_list.presentation.screen.LinksListScreen
 import com.uriolus.recipes.feature.recipe_detail.presentation.screen.RecipeDetailScreen
 import com.uriolus.recipes.feature.recipe_list.presentation.screen.RecipeListScreen
@@ -44,25 +46,36 @@ fun RecipeApp() {
     
     NavHost(
         navController = navController,
-        startDestination = "recipe_list"
+        startDestination = NavRoutes.LOGIN
     ) {
-        composable(route = "recipe_list") {
+        composable(route = NavRoutes.LOGIN) {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(NavRoutes.RECIPE_LIST) {
+                        popUpTo(NavRoutes.LOGIN) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(route = NavRoutes.RECIPE_LIST) {
             RecipeListScreen(
+                navController = navController,
                 onNavigateToRecipeDetail = { recipeId ->
-                    navController.navigate("recipe_detail/$recipeId")
+                    navController.navigate(NavRoutes.recipeDetail(recipeId))
                 },
                 onNavigateToLinksList = {
-                    navController.navigate("links_list")
+                    navController.navigate(NavRoutes.LINKS_LIST)
                 }
             )
         }
         
-        composable(route = "links_list") {
+        composable(route = NavRoutes.LINKS_LIST) {
             LinksListScreen()
         }
         
         composable(
-            route = "recipe_detail/{recipeId}",
+            route = NavRoutes.RECIPE_DETAIL,
             arguments = listOf(
                 navArgument("recipeId") {
                     type = NavType.StringType

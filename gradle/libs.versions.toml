@@ -31,6 +31,12 @@ ktor = "2.3.10"
 hilt = "2.51"
 hiltNavigationCompose = "1.2.0"
 
+# DataStore
+datastorePreferences = "1.1.1"
+
+# Tink
+tinkAndroid = "1.13.0"
+
 # Testing
 junit4 = "4.13.2"
 junitExt = "1.2.1"
@@ -45,6 +51,7 @@ jsoup = "1.17.2"
 
 # Room
 room = "2.7.1"
+roomExternalAntlr = "2.7.1"
 
 [libraries]
 # AndroidX Core
@@ -92,7 +99,6 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 # Testing
-
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitExt" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junitJupiter" }
@@ -106,9 +112,16 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
+# DataStore
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
+
+# Tink
+google-tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tinkAndroid" }
+
 # Other
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
+androidx-room-external-antlr = { group = "androidx.room", name = "room-external-antlr", version.ref = "roomExternalAntlr" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

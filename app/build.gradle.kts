@@ -82,6 +82,7 @@ dependencies {
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.room.external.antlr)
     ksp(libs.room.compiler)
     
     // Hilt (Dagger)
@@ -94,6 +95,12 @@ dependencies {
     
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    // Tink (for encryption with DataStore)
+    implementation(libs.google.tink.android)
     
     // Image loading
     implementation(libs.coil.compose)
