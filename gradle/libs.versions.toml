@@ -1,6 +1,6 @@
 [versions]
 # Android & Gradle
-agp = "8.10.0"
+agp = "8.10.1"
 kotlin = "2.0.21"
 ksp = "2.0.21-1.0.25"
 compose = "1.6.2"
