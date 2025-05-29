@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -167,7 +166,7 @@ fun RecipeListScreenPreview() {
                 recipes = listOf(
                     Recipe(
                         id = "1",
-                        title = "Spaghetti Carbonara",
+                        name = "Spaghetti Carbonara",
                         description = "A classic Italian pasta dish with eggs, cheese, pancetta, and pepper.",
                         imageUrl = "https://images.unsplash.com/photo-1612874742237-6526221588e3",
                         ingredients = listOf("Spaghetti", "Eggs", "Pancetta", "Parmesan", "Black Pepper"),
@@ -175,7 +174,7 @@ fun RecipeListScreenPreview() {
                     ),
                     Recipe(
                         id = "2",
-                        title = "Avocado Toast",
+                        name = "Avocado Toast",
                         description = "A simple and nutritious breakfast with mashed avocado on toasted bread.",
                         imageUrl = "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d",
                         ingredients = listOf("Bread", "Avocado", "Lemon juice", "Salt", "Pepper"),

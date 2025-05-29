@@ -4,5 +4,6 @@ import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
 import kotlinx.coroutines.flow.Flow
 
 interface RecipeDataSource {
-    fun getRecipes(): Flow<List<Recipe>>
+    suspend fun getRecipes(): List<Recipe>
+    suspend fun saveRecipes(recipes: List<Recipe>)
 }

@@ -1,8 +1,9 @@
 package com.uriolus.recipes.feature.recipe_list.data.source
 
-import com.uriolus.recipes.feature.links_list.data.source.local.RecipesDatabase
+import com.uriolus.recipes.core.data.local.RecipesDatabase
+import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkEntity
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -10,24 +11,38 @@ class RoomRecipeDataSource @Inject constructor(
     private val database: RecipesDatabase
 ) : RecipeDataSource {
     
-    override fun getRecipes(): Flow<List<Recipe>> {
+    override suspend fun getRecipes(): List<Recipe> {
         return database.recipeLinkDao.getAllLinks().map { entities ->
             entities.map { entity ->
-                // Extract potential ingredients and instructions from the description
-                val (ingredients, instructions) = extractIngredientsAndInstructions(entity.description)
-                
                 Recipe(
-                    id = entity.id.toString(),
-                    title = entity.title,
+                    id = entity.id.toString(), 
+                    name = entity.title,
                     description = entity.description,
                     imageUrl = entity.thumbnailUrl.ifEmpty { DEFAULT_IMAGE_URL },
-                    ingredients = ingredients,
-                    instructions = instructions
+                    ingredients = emptyList(), 
+                    instructions = emptyList(), 
+                    sourceUrl = entity.url
                 )
             }
+        }.first()
+    }
+
+    override suspend fun saveRecipes(recipes: List<Recipe>) {
+        database.recipeLinkDao.deleteAll() // Clear existing recipes
+        val entities = recipes.map { recipe ->
+            RecipeLinkEntity(
+                url = recipe.sourceUrl ?: "", // Use sourceUrl from Recipe domain model
+                title = recipe.name,
+                description = recipe.description,
+                thumbnailUrl = recipe.imageUrl,
+                createdAt = System.currentTimeMillis()
+            )
+        }
+        entities.forEach { entity ->
+            database.recipeLinkDao.insertLink(entity)
         }
     }
-    
+
     private fun extractIngredientsAndInstructions(description: String): Pair<List<String>, List<String>> {
         val ingredients = mutableListOf<String>()
         val instructions = mutableListOf<String>()

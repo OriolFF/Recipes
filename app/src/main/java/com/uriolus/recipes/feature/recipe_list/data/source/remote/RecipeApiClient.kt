@@ -71,27 +71,17 @@ class RecipeApiClient @Inject constructor(private val tokenStorageManager: Token
      */
     suspend fun getAllRecipes(): List<RecipeDto> {
         val token = tokenStorageManager.accessTokenFlow.firstOrNull()
-        return client.get("$baseUrl/recipes") {
+        return client.get("$baseUrl/getallrecipes") {
             token?.let { header(HttpHeaders.Authorization, "Bearer $it") }
         }.body()
     }
-    
-    /**
-     * Get a specific recipe by ID
-     */
-    suspend fun getRecipeById(id: String): RecipeDto {
-        val token = tokenStorageManager.accessTokenFlow.firstOrNull()
-        return client.get("$baseUrl/recipes/$id") {
-            token?.let { header(HttpHeaders.Authorization, "Bearer $it") }
-        }.body()
-    }
-    
+
     /**
      * Extract recipe data from a URL
      */
     suspend fun extractRecipeFromUrl(url: String): RecipeDto {
         val token = tokenStorageManager.accessTokenFlow.firstOrNull()
-        return client.post("$baseUrl/recipes/extract") {
+        return client.post("$baseUrl/obtainrecipe") {
             token?.let { header(HttpHeaders.Authorization, "Bearer $it") }
             contentType(ContentType.Application.Json)
             setBody(ExtractRecipeRequest(url))

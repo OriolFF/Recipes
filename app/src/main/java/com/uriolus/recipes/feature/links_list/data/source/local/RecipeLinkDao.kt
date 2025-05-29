@@ -20,4 +20,7 @@ interface RecipeLinkDao {
     
     @Query("DELETE FROM recipe_links WHERE id = :linkId")
     suspend fun deleteLinkById(linkId: Long)
+
+    @Query("DELETE FROM recipe_links")
+    suspend fun deleteAll()
 }

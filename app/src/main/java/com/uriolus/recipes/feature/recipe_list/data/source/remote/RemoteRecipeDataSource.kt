@@ -2,8 +2,6 @@ package com.uriolus.recipes.feature.recipe_list.data.source.remote
 
 import com.uriolus.recipes.feature.recipe_list.data.source.RecipeDataSource
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 /**
@@ -13,15 +11,23 @@ class RemoteRecipeDataSource @Inject constructor(
     private val apiClient: RecipeApiClient
 ) : RecipeDataSource {
     
-    override fun getRecipes(): Flow<List<Recipe>> = flow {
-        try {
-            val recipes = apiClient.getAllRecipes().map { it.toDomainModel() }
-            emit(recipes)
+    override suspend fun getRecipes(): List<Recipe> {
+        return try {
+            apiClient.getAllRecipes().map { it.toDomain() }
         } catch (e: Exception) {
-            // In a real app, you'd want to handle errors more gracefully
-            // and potentially emit an empty list or cached data
-            emit(emptyList())
+            // Log error or handle as needed
+            emptyList()
         }
+    }
+
+    // Added to fulfill RecipeDataSource interface
+    override suspend fun saveRecipes(recipes: List<Recipe>) {
+        // This operation might not be directly supported or needed for a remote source,
+        // or it might involve complex logic (e.g., individual POST/PUT requests per recipe).
+        // For now, it's a no-op. The primary responsibility for saving/caching
+        // will likely fall to the LocalRecipeDataSource via the repository.
+        // If your API supports bulk saving, implement it here.
+        // Example: recipes.forEach { apiClient.saveRecipe(it.toDto()) }
     }
     
     /**
@@ -29,8 +35,9 @@ class RemoteRecipeDataSource @Inject constructor(
      */
     suspend fun extractRecipeFromUrl(url: String): Recipe? {
         return try {
-            apiClient.extractRecipeFromUrl(url).toDomainModel()
+            apiClient.extractRecipeFromUrl(url).toDomain()
         } catch (e: Exception) {
+            // Log error or handle as needed
             null
         }
     }

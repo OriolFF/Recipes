@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.uriolus.recipes.feature.links_list.data.repository.RecipeLinkRepositoryImpl
 import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkDao
-import com.uriolus.recipes.feature.links_list.data.source.local.RecipesDatabase
+import com.uriolus.recipes.core.data.local.RecipesDatabase
 import com.uriolus.recipes.feature.links_list.domain.repository.RecipeLinkRepository
 import com.uriolus.recipes.feature.links_list.domain.use_case.AddLinkUseCase
 import com.uriolus.recipes.feature.links_list.domain.use_case.DeleteLinkUseCase

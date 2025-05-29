@@ -11,10 +11,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,7 +31,7 @@ class RecipeListViewModel @Inject constructor(
         when (action) {
             is RecipeListAction.LoadRecipes -> loadRecipes()
             is RecipeListAction.RecipeClicked -> {
-                // Handle navigation to recipe detail (will be implemented later)
+                // Handle navigation to recipe detail
             }
             is RecipeListAction.LogoutClicked -> {
                 viewModelScope.launch {
@@ -47,18 +43,16 @@ class RecipeListViewModel @Inject constructor(
     }
 
     private fun loadRecipes() {
-        getRecipesUseCase()
-            .onStart { 
-                _state.value = _state.value.copy(isLoading = true, error = null) 
-            }
-            .onEach { recipes ->
+        viewModelScope.launch {
+            _state.value = _state.value.copy(isLoading = true, error = null)
+            try {
+                val recipes = getRecipesUseCase.exec()
                 _state.value = _state.value.copy(
                     recipes = recipes,
                     isLoading = false,
                     authenticationErrorOccurred = false // Reset on successful load
                 )
-            }
-            .catch { e ->
+            } catch (e: Exception) {
                 if (e is AuthenticationException) {
                     _state.value = _state.value.copy(
                         isLoading = false,
@@ -68,12 +62,11 @@ class RecipeListViewModel @Inject constructor(
                 } else {
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        error = e.message ?: "Unknown error occurred",
-                        logoutRequested = false // Ensure logoutRequested is reset on error if needed
+                        error = e.message ?: "Unknown error occurred"
                     )
                 }
             }
-            .launchIn(viewModelScope)
+        }
     }
 
     fun onLogoutHandled() {

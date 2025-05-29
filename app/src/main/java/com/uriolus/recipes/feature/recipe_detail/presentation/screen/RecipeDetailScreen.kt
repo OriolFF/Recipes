@@ -180,7 +180,7 @@ fun RecipeDetailContentPreview() {
             state = RecipeDetailState(
                 recipe = Recipe(
                     id = "1",
-                    title = "Spaghetti Carbonara",
+                    name = "Spaghetti Carbonara",
                     description = "A classic Italian pasta dish with eggs, cheese, pancetta, and pepper.",
                     imageUrl = "https://images.unsplash.com/photo-1612874742237-6526221588e3",
                     ingredients = listOf(

@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,24 +35,23 @@ class RecipeDetailViewModel @Inject constructor(
     fun handleAction(action: RecipeDetailAction) {
         when (action) {
             is RecipeDetailAction.LoadRecipe -> loadRecipe(action.id)
-            is RecipeDetailAction.NavigateBack -> { /* Handle in the UI layer */ }
+            is RecipeDetailAction.NavigateBack -> { /* Handle in the UI layer */
+            }
         }
     }
 
     private fun loadRecipe(id: String) {
         _state.update { it.copy(isLoading = true, error = null) }
-        
-        getRecipeByIdUseCase(id)
-            .onEach { recipe ->
-                if (recipe != null) {
-                    _state.update { it.copy(recipe = recipe, isLoading = false) }
-                } else {
-                    _state.update { it.copy(error = "Recipe not found", isLoading = false) }
-                }
+        viewModelScope.launch {
+            val recipe = getRecipeByIdUseCase.exec(id)
+
+            if (recipe != null) {
+                _state.update { it.copy(recipe = recipe, isLoading = false) }
+            } else {
+                _state.update { it.copy(error = "Recipe not found", isLoading = false) }
             }
-            .catch { e ->
-                _state.update { it.copy(error = e.message ?: "Unknown error", isLoading = false) }
-            }
-            .launchIn(viewModelScope)
+        }
+
     }
+
 }

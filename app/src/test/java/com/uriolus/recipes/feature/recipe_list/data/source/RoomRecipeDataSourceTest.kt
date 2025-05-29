@@ -3,7 +3,7 @@ package com.uriolus.recipes.feature.recipe_list.data.source
 import app.cash.turbine.test
 import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkDao
 import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkEntity
-import com.uriolus.recipes.feature.links_list.data.source.local.RecipesDatabase
+import com.uriolus.recipes.core.data.local.RecipesDatabase
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
@@ -50,7 +50,7 @@ class RoomRecipeDataSourceTest {
             
             val recipe = recipes[0]
             assertEquals("1", recipe.id)
-            assertEquals("Test Recipe", recipe.title)
+            assertEquals("Test Recipe", recipe.name)
             assertEquals("A delicious test recipe\n\nIngredients:\n- 1 cup flour\n- 2 eggs\n\nInstructions:\n1. Mix ingredients\n2. Bake for 30 minutes", recipe.description)
             assertEquals("https://example.com/image.jpg", recipe.imageUrl)
             assertEquals(2, recipe.ingredients.size)
@@ -85,7 +85,7 @@ class RoomRecipeDataSourceTest {
             
             val recipe = recipes[0]
             assertEquals("1", recipe.id)
-            assertEquals("Test Recipe", recipe.title)
+            assertEquals("Test Recipe", recipe.name)
             // Verify that a default image URL is used
             assertTrue(recipe.imageUrl.isNotEmpty())
             

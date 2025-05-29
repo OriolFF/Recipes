@@ -9,12 +9,7 @@ class ExtractRecipeFromUrlUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(url: String): Result<Recipe> {
         return try {
-            val recipe = repository.extractRecipeFromUrl(url)
-            if (recipe != null) {
-                Result.success(recipe)
-            } else {
-                Result.failure(Exception("Failed to extract recipe from URL"))
-            }
+            repository.extractRecipeFromUrl(url)
         } catch (e: Exception) {
             Result.failure(e)
         }

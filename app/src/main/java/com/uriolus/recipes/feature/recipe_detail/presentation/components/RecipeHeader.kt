@@ -36,7 +36,7 @@ fun RecipeHeader(
     ) {
         AsyncImage(
             model = recipe.imageUrl,
-            contentDescription = recipe.title,
+            contentDescription = recipe.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxWidth()
         )
@@ -64,7 +64,7 @@ fun RecipeHeader(
                 .padding(16.dp)
         ) {
             Text(
-                text = recipe.title,
+                text = recipe.name,
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
@@ -91,7 +91,7 @@ fun RecipeHeaderPreview() {
         RecipeHeader(
             recipe = Recipe(
                 id = "1",
-                title = "Spaghetti Carbonara",
+                name = "Spaghetti Carbonara",
                 description = "A classic Italian pasta dish with eggs, cheese, pancetta, and pepper.",
                 imageUrl = "https://images.unsplash.com/photo-1612874742237-6526221588e3",
                 ingredients = listOf("Spaghetti", "Eggs", "Pancetta", "Parmesan", "Black Pepper"),

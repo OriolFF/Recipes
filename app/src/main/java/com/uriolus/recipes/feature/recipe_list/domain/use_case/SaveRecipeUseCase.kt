@@ -12,10 +12,10 @@ class SaveRecipeUseCase @Inject constructor(
         return try {
             val entity = RecipeLinkEntity(
                 id = recipe.id.toLongOrNull() ?: 0L,
-                title = recipe.title,
+                title = recipe.name,
                 description = recipe.description,
-                thumbnailUrl = recipe.imageUrl,
-                url = "", // This should be set if available in the Recipe model
+                thumbnailUrl = recipe.imageUrl?:"",
+                url = recipe.imageUrl?:"",
                 createdAt = System.currentTimeMillis()
             )
             recipeLinkRepository.insertLink(entity.toRecipeLink())

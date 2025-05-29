@@ -1,0 +1,44 @@
+<!-- res/drawable/ic_default_recipe_placeholder.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+
+    <!-- Background Circle (Optional, can be transparent) -->
+    <path
+        android:fillColor="#F0F0F0" 
+        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2z"/>
+
+    <!-- Plate (Primary Theme Color for border, White for plate surface) -->
+    <path
+        android:fillColor="#FFFFFF" 
+        android:pathData="M12,3.5A8.5,8.5 0 0,0 3.5,12A8.5,8.5 0 0,0 12,20.5A8.5,8.5 0 0,0 20.5,12A8.5,8.5 0 0,0 12,3.5Z"/>
+    <path
+        android:strokeColor="#6200EE" 
+        android:strokeWidth="1"
+        android:pathData="M12,2.5A9.5,9.5 0 0,0 2.5,12A9.5,9.5 0 0,0 12,21.5A9.5,9.5 0 0,0 21.5,12A9.5,9.5 0 0,0 12,2.5Z"/>
+
+    <!-- Cutlery (Spoon and Fork - Secondary Theme Color) -->
+    <!-- Fork -->
+    <path
+        android:fillColor="#03DAC5"
+        android:pathData="M8.5,7 
+                        L8.5,17 
+                        M7,9 L8.5,7.5 L10,9 
+                        M7,11 L8.5,9.5 L10,11 
+                        M7,13 L8.5,11.5 L10,13" 
+        android:strokeWidth="0.8"
+        android:strokeColor="#03DAC5"/>
+    
+    <!-- Spoon -->
+    <path
+        android:fillColor="#03DAC5"
+        android:pathData="M15.5,7 
+                        L15.5,13 
+                        A1.5,1.5 0 0,0 15.5,16 
+                        A1.5,1.5 0 0,0 15.5,13"
+        android:strokeWidth="0.8"
+        android:strokeColor="#03DAC5"/>
+
+</vector>

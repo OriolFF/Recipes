@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RecipeDto(
     val id: String,
-    val title: String,
+    val name: String,
     val description: String? = null,
     val imageUrl: String? = null,
     val ingredients: List<String> = emptyList(),
@@ -20,14 +20,15 @@ data class RecipeDto(
 /**
  * Extension function to convert RecipeDto to domain Recipe model
  */
-fun RecipeDto.toDomainModel(): Recipe {
+fun RecipeDto.toDomain(): Recipe {
     return Recipe(
         id = id,
-        title = title,
+        name = name,
         description = description ?: "",
         imageUrl = imageUrl ?: "",
         ingredients = ingredients,
-        instructions = instructions
+        instructions = instructions,
+        sourceUrl = sourceUrl
     )
 }
 
