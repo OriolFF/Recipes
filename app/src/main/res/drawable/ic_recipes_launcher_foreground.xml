@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <group
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:translateX="192"
+        android:translateY="192">
+        <!-- Chef Hat -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M480,200Q430,200 395,235Q360,270 360,320Q360,345 370,365Q380,385 400,400L400,480L560,480L560,400Q580,385 590,365Q600,345 600,320Q600,270 565,235Q530,200 480,200Z" />
+        
+        <!-- Recipe Book -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M320,440L320,720Q320,745 337.5,762.5Q355,780 380,780L580,780Q605,780 622.5,762.5Q640,745 640,720L640,440L600,440L600,720Q600,720 600,720Q600,720 600,720L380,720Q380,720 380,720Q380,720 380,720L380,440L320,440Z" />
+        
+        <!-- Recipe Lines -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M400,520L560,520L560,540L400,540L400,520Z" />
+        
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M400,580L560,580L560,600L400,600L400,580Z" />
+        
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M400,640L560,640L560,660L400,660L400,640Z" />
+        
+        <!-- Fork -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M680,440Q680,410 665,385Q650,360 625,345L640,320Q672,340 692,372.5Q712,405 712,440L680,440Z" />
+        
+        <!-- Spoon -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M280,440Q280,405 300,372.5Q320,340 352,320L367,345Q342,360 327,385Q312,410 312,440L280,440Z" />
+    </group>
+</vector>

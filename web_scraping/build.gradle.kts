@@ -21,15 +21,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     testOptions {
         unitTests.isReturnDefaultValues = true // Recommended for Android unit tests
     }
+}
+
+configurations.all {
+    resolutionStrategy.force("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+    resolutionStrategy.force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22")
+    resolutionStrategy.force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22")
 }
 
 dependencies {
@@ -42,7 +48,6 @@ dependencies {
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params) // For parameterized tests, if needed
     testRuntimeOnly(libs.junit.jupiter.engine)
-
 }
 
 // Configure the test task to use JUnit Platform for JUnit 5

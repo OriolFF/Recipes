@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <group
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:translateX="192"
+        android:translateY="192">
+        
+        <!-- Bowl -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M480,220C353.9,220 252,321.9 252,448C252,574.1 353.9,676 480,676C606.1,676 708,574.1 708,448C708,321.9 606.1,220 480,220ZM480,260C584.1,260 668,343.9 668,448C668,552.1 584.1,636 480,636C375.9,636 292,552.1 292,448C292,343.9 375.9,260 480,260Z" />
+        
+        <!-- Spoon -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M420,350C390,350 370,370 370,400L370,450C370,480 390,500 420,500L420,546L440,546L440,500C470,500 490,480 490,450L490,400C490,370 470,350 440,350L420,350ZM420,370L440,370C458,370 470,382 470,400L470,450C470,468 458,480 440,480L420,480C402,480 390,468 390,450L390,400C390,382 402,370 420,370Z" />
+        
+        <!-- Food Elements -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M540,380C520,380 500,400 500,420C500,440 520,460 540,460C560,460 580,440 580,420C580,400 560,380 540,380Z" />
+        
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M580,480C560,480 540,500 540,520C540,540 560,560 580,560C600,560 620,540 620,520C620,500 600,480 580,480Z" />
+        
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M500,500C480,500 460,520 460,540C460,560 480,580 500,580C520,580 540,560 540,540C540,520 520,500 500,500Z" />
+        
+        <!-- Steam -->
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M420,300C420,300 440,280 460,300C480,320 500,300 500,300" 
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="12"
+            android:strokeLineCap="round"/>
+            
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M500,280C500,280 520,260 540,280C560,300 580,280 580,280" 
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="12"
+            android:strokeLineCap="round"/>
+    </group>
+</vector>

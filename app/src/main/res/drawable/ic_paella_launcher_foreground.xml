@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <group
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        android:translateX="120"
+        android:translateY="120">
+        
+        <!-- Paella Pan - Yellow/Gold -->
+        <path
+            android:fillColor="#FFD700"
+            android:pathData="M480,180C336,180 220,296 220,440C220,584 336,700 480,700C624,700 740,584 740,440C740,296 624,180 480,180ZM480,220C602,220 700,318 700,440C700,562 602,660 480,660C358,660 260,562 260,440C260,318 358,220 480,220Z" />
+        
+        <!-- Pan Handles -->
+        <path
+            android:fillColor="#FFD700"
+            android:pathData="M220,440L180,440C180,440 160,440 160,420C160,400 180,400 180,400L220,400L220,440Z" />
+        
+        <path
+            android:fillColor="#FFD700"
+            android:pathData="M740,440L780,440C780,440 800,440 800,420C800,400 780,400 780,400L740,400L740,440Z" />
+        
+        <!-- Rice Base - Yellow -->
+        <path
+            android:fillColor="#FFF59D"
+            android:pathData="M480,260C380,260 300,340 300,440C300,540 380,620 480,620C580,620 660,540 660,440C660,340 580,260 480,260Z" />
+        
+        <!-- Paella Ingredients -->
+        <!-- Red Peppers - Red -->
+        <path
+            android:fillColor="#F44336"
+            android:pathData="M380,320C360,320 340,340 340,360C340,380 360,400 380,400C400,400 420,380 420,360C420,340 400,320 380,320Z" />
+        
+        <path
+            android:fillColor="#F44336"
+            android:pathData="M580,480C560,480 540,500 540,520C540,540 560,560 580,560C600,560 620,540 620,520C620,500 600,480 580,480Z" />
+        
+        <path
+            android:fillColor="#F44336"
+            android:pathData="M450,520C430,520 410,540 410,560C410,580 430,600 450,600C470,600 490,580 490,560C490,540 470,520 450,520Z" />
+        
+        <!-- Peas - Green -->
+        <path
+            android:fillColor="#4CAF50"
+            android:pathData="M520,320C510,320 500,330 500,340C500,350 510,360 520,360C530,360 540,350 540,340C540,330 530,320 520,320Z" />
+        
+        <path
+            android:fillColor="#4CAF50"
+            android:pathData="M420,440C410,440 400,450 400,460C400,470 410,480 420,480C430,480 440,470 440,460C440,450 430,440 420,440Z" />
+        
+        <path
+            android:fillColor="#4CAF50"
+            android:pathData="M500,400C490,400 480,410 480,420C480,430 490,440 500,440C510,440 520,430 520,420C520,410 510,400 500,400Z" />
+        
+        <path
+            android:fillColor="#4CAF50"
+            android:pathData="M540,460C530,460 520,470 520,480C520,490 530,500 540,500C550,500 560,490 560,480C560,470 550,460 540,460Z" />
+        
+        <path
+            android:fillColor="#4CAF50"
+            android:pathData="M380,480C370,480 360,490 360,500C360,510 370,520 380,520C390,520 400,510 400,500C400,490 390,480 380,480Z" />
+        
+        <!-- Seafood - Red -->
+        <path
+            android:fillColor="#F44336"
+            android:pathData="M480,340C460,340 440,360 440,380C440,400 460,420 480,420C500,420 520,400 520,380C520,360 500,340 480,340Z" />
+        
+        <path
+            android:fillColor="#F44336"
+            android:pathData="M380,440C360,440 340,460 340,480C340,500 360,520 380,520C400,520 420,500 420,480C420,460 400,440 380,440Z" />
+        
+        <path
+            android:fillColor="#F44336"
+            android:pathData="M580,380C560,380 540,400 540,420C540,440 560,460 580,460C600,460 620,440 620,420C620,400 600,380 580,380Z" />
+    </group>
+</vector>
