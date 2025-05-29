@@ -13,6 +13,7 @@ data class RecipeEntity(
     val title: String,
     val description: String,
     val imageUrl: String,
+    val sourceUrl: String?,
     val ingredients: List<String> = emptyList(),
     val instructions: List<String> = emptyList()
 )

@@ -1,6 +1,7 @@
 package com.uriolus.recipes.feature.recipe_list.data.source.remote
 
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -11,9 +12,11 @@ data class RecipeDto(
     val id: String,
     val name: String,
     val description: String? = null,
+    @SerialName("image_url")
     val imageUrl: String? = null,
     val ingredients: List<String> = emptyList(),
     val instructions: List<String> = emptyList(),
+    @SerialName("source_url")
     val sourceUrl: String? = null
 )
 

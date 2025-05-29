@@ -10,7 +10,8 @@ fun RecipeEntity.toDomain(): Recipe {
         description = this.description,
         imageUrl = this.imageUrl,
         ingredients = this.ingredients,
-        instructions = this.instructions
+        instructions = this.instructions,
+        sourceUrl = this.sourceUrl
     )
 }
 
@@ -23,9 +24,10 @@ fun Recipe.toEntity(): RecipeEntity {
         id = this.id,
         title = this.name,
         description = this.description,
-        imageUrl = this.imageUrl?:"",
+        imageUrl = this.imageUrl ?: "",
         ingredients = this.ingredients,
-        instructions = this.instructions
+        instructions = this.instructions,
+        sourceUrl = this.sourceUrl
     )
 }
 
