@@ -29,11 +29,16 @@ class RemoteRecipeDataSource @Inject constructor(
         // If your API supports bulk saving, implement it here.
         // Example: recipes.forEach { apiClient.saveRecipe(it.toDto()) }
     }
+
+    override suspend fun saveRecipe(recipe: Recipe) {
+        // Remote source typically doesn't save individual recipes this way
+        throw UnsupportedOperationException("Saving a single recipe is not supported by RemoteRecipeDataSource")
+    }
     
     /**
      * Extract recipe data from a URL
      */
-    suspend fun extractRecipeFromUrl(url: String): Recipe? {
+    override suspend fun extractRecipeFromUrl(url: String): Recipe? {
         return try {
             apiClient.extractRecipeFromUrl(url).toDomain()
         } catch (e: Exception) {

@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface RecipeDataSource {
     suspend fun getRecipes(): List<Recipe>
     suspend fun saveRecipes(recipes: List<Recipe>)
+    suspend fun saveRecipe(recipe: Recipe)
+    suspend fun extractRecipeFromUrl(url: String): Recipe?
 }

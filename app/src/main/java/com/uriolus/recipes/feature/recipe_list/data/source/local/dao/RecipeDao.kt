@@ -15,6 +15,9 @@ interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(recipes: List<RecipeEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertRecipe(recipe: RecipeEntity)
+
     @Query("DELETE FROM recipes")
     suspend fun deleteAll() // Optional: useful for clearing cache or full refresh
 }

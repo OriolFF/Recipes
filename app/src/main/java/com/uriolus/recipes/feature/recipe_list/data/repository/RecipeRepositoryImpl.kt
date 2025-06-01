@@ -2,7 +2,6 @@ package com.uriolus.recipes.feature.recipe_list.data.repository
 
 import android.util.Log
 import com.uriolus.recipes.feature.recipe_list.data.source.RecipeDataSource
-import com.uriolus.recipes.feature.recipe_list.data.source.remote.RemoteRecipeDataSource
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
 import com.uriolus.recipes.feature.recipe_list.domain.repository.RecipeRepository
 import javax.inject.Inject
@@ -39,14 +38,12 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override suspend fun extractRecipeFromUrl(url: String): Result<Recipe> {
         Log.d("RecipeRepositoryImpl", "Attempting to extract recipe from URL: $url")
-        val remote = remoteDataSource as? RemoteRecipeDataSource
-            ?: return Result.failure(IllegalStateException("RemoteDataSource configuration error for URL extraction."))
         
         return try {
-            val extractedRecipe = remote.extractRecipeFromUrl(url) 
+            val extractedRecipe = remoteDataSource.extractRecipeFromUrl(url) 
             if (extractedRecipe != null) {
                 Log.d("RecipeRepositoryImpl", "Successfully extracted recipe: ${extractedRecipe.name}. Caching locally.")
-                localDataSource.saveRecipes(listOf(extractedRecipe)) 
+                localDataSource.saveRecipe(extractedRecipe) 
                 Result.success(extractedRecipe)
             } else {
                 Log.w("RecipeRepositoryImpl", "Failed to extract recipe from URL or URL yielded no recipe.")

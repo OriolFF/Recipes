@@ -2,6 +2,7 @@ package com.uriolus.recipes.feature.recipe_list.data.source
 
 import com.uriolus.recipes.core.data.local.RecipesDatabase
 import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkEntity
+import com.uriolus.recipes.feature.recipe_list.data.source.local.model.toEntity
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -41,6 +42,15 @@ class RoomRecipeDataSource @Inject constructor(
         entities.forEach { entity ->
             database.recipeLinkDao.insertLink(entity)
         }
+    }
+
+    override suspend fun saveRecipe(recipe: Recipe) {
+        val recipeEntity = recipe.toEntity() // Convert domain Recipe to RecipeEntity
+        database.recipeDao().insertRecipe(recipeEntity) // Use RecipeDao
+    }
+
+    override suspend fun extractRecipeFromUrl(url: String): Recipe? {
+        throw UnsupportedOperationException("Extracting from URL is not supported by RoomRecipeDataSource")
     }
 
     private fun extractIngredientsAndInstructions(description: String): Pair<List<String>, List<String>> {

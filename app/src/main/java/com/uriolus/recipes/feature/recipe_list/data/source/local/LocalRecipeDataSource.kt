@@ -25,4 +25,12 @@ class LocalRecipeDataSource @Inject constructor(
         // recipeDao.deleteAll() 
         recipeDao.insertAll(recipes.toEntity())
     }
+
+    override suspend fun saveRecipe(recipe: Recipe) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun extractRecipeFromUrl(url: String): Recipe? {
+        TODO("Not yet implemented")
+    }
 }
