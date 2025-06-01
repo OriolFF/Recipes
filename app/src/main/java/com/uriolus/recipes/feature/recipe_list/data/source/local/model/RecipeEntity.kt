@@ -1,4 +1,4 @@
-package com.uriolus.recipes.feature.recipe_list.data.local.model
+package com.uriolus.recipes.feature.recipe_list.data.source.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,10 +1,10 @@
-package com.uriolus.recipes.feature.recipe_list.data.local.dao
+package com.uriolus.recipes.feature.recipe_list.data.source.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.uriolus.recipes.feature.recipe_list.data.local.model.RecipeEntity
+import com.uriolus.recipes.feature.recipe_list.data.source.local.model.RecipeEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

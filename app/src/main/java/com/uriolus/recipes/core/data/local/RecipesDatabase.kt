@@ -4,8 +4,8 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkDao
 import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkEntity
-import com.uriolus.recipes.feature.recipe_list.data.local.dao.RecipeDao
-import com.uriolus.recipes.feature.recipe_list.data.local.model.RecipeEntity
+import com.uriolus.recipes.feature.recipe_list.data.source.local.dao.RecipeDao
+import com.uriolus.recipes.feature.recipe_list.data.source.local.model.RecipeEntity
 
 @Database(
     entities = [RecipeLinkEntity::class, RecipeEntity::class],

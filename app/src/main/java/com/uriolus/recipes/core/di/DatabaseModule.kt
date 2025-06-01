@@ -1,7 +1,7 @@
 package com.uriolus.recipes.core.di
 
 import com.uriolus.recipes.core.data.local.RecipesDatabase
-import com.uriolus.recipes.feature.recipe_list.data.local.dao.RecipeDao
+import com.uriolus.recipes.feature.recipe_list.data.source.local.dao.RecipeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

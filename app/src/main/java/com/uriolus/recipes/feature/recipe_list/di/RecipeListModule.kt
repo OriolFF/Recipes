@@ -4,7 +4,7 @@ import com.uriolus.recipes.feature.recipe_list.data.repository.RecipeRepositoryI
 import com.uriolus.recipes.feature.recipe_list.data.source.RecipeDataSource
 import com.uriolus.recipes.feature.recipe_list.data.source.remote.RemoteRecipeDataSource
 import com.uriolus.recipes.feature.recipe_list.domain.repository.RecipeRepository
-import com.uriolus.recipes.feature.recipe_list.data.local.LocalRecipeDataSource
+import com.uriolus.recipes.feature.recipe_list.data.source.local.LocalRecipeDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

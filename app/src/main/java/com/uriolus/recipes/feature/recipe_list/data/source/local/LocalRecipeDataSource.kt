@@ -1,10 +1,10 @@
-package com.uriolus.recipes.feature.recipe_list.data.local
+package com.uriolus.recipes.feature.recipe_list.data.source.local
 
 import com.uriolus.recipes.feature.recipe_list.data.source.RecipeDataSource
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
-import com.uriolus.recipes.feature.recipe_list.data.local.dao.RecipeDao
-import com.uriolus.recipes.feature.recipe_list.data.local.model.toDomain
-import com.uriolus.recipes.feature.recipe_list.data.local.model.toEntity
+import com.uriolus.recipes.feature.recipe_list.data.source.local.dao.RecipeDao
+import com.uriolus.recipes.feature.recipe_list.data.source.local.model.toDomain
+import com.uriolus.recipes.feature.recipe_list.data.source.local.model.toEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
