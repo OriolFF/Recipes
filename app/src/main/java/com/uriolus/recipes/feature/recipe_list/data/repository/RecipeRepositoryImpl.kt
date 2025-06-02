@@ -1,57 +1,80 @@
 package com.uriolus.recipes.feature.recipe_list.data.repository
 
 import android.util.Log
+import arrow.core.Either
+import arrow.core.flatMap
+import arrow.core.left
+import arrow.core.right
+import com.uriolus.recipes.core.model.AppError
 import com.uriolus.recipes.feature.recipe_list.data.source.RecipeDataSource
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
 import com.uriolus.recipes.feature.recipe_list.domain.repository.RecipeRepository
 import javax.inject.Inject
 import javax.inject.Named
-import kotlin.Result
 
 class RecipeRepositoryImpl @Inject constructor(
     @Named("local") private val localDataSource: RecipeDataSource,
     @Named("remote") private val remoteDataSource: RecipeDataSource
 ) : RecipeRepository {
 
-    override suspend fun getRecipes(): List<Recipe> {
-        Log.d("RecipeRepositoryImpl", "Providing recipes List from local data source.")
-        return localDataSource.getRecipes()
-    }
-
-    override suspend fun fetchAndCacheRecipes(): Result<Unit> {
-        Log.d("RecipeRepositoryImpl", "Attempting to fetch and cache recipes from remote.")
-        return try {
-            val freshRecipes = remoteDataSource.getRecipes() 
-            if (freshRecipes.isNotEmpty()) {
-                localDataSource.saveRecipes(freshRecipes)
-                Log.d("RecipeRepositoryImpl", "Fetched ${freshRecipes.size} recipes from remote and saved to local.")
-                Result.success(Unit)
-            } else {
-                Log.w("RecipeRepositoryImpl", "Remote fetch returned empty list. No new data cached.")
-                Result.success(Unit) 
+    override suspend fun getRecipes(): Either<AppError, List<Recipe>> =
+        localDataSource.getRecipes()
+            .mapLeft { error ->
+                Log.e("RecipeRepository", "Failed to get local recipes: ${error.message}")
+                error
             }
-        } catch (e: Exception) {
-            Log.e("RecipeRepositoryImpl", "Failed to fetch recipes from remote: ${e.message}", e)
-            Result.failure(e)
+
+    override suspend fun fetchAndCacheRecipes(): Either<AppError, Unit> {
+        return remoteDataSource.getRecipes()
+            .flatMap { remoteRecipes ->
+            if (remoteRecipes.isNotEmpty()) {
+                localDataSource.saveRecipes(remoteRecipes).map {
+                    Log.d("RecipeRepository", "Successfully cached ${remoteRecipes.size} recipes")
+                    // Unit is implicitly returned by map if successful
+                }.mapLeft { error ->
+                    Log.e("RecipeRepository", "Failed to cache recipes: ${error.message}")
+                    error // Propagate the error from localDataSource
+                }
+            } else {
+                Log.w("RecipeRepository", "Remote fetch returned empty recipe list, nothing to cache.")
+                Unit.right() // Success, even if no recipes to cache
+            }
+        }.mapLeft { error ->
+            Log.e("RecipeRepository", "Failed to fetch recipes from remote: ${error.message}")
+            error // Propagate the error from remoteDataSource
         }
     }
 
-    override suspend fun extractRecipeFromUrl(url: String): Result<Recipe> {
-        Log.d("RecipeRepositoryImpl", "Attempting to extract recipe from URL: $url")
+    override suspend fun extractRecipeFromUrl(url: String): Either<AppError, Recipe> {
+        Log.d("RecipeRepository", "Extracting recipe from URL: $url")
         
-        return try {
-            val extractedRecipe = remoteDataSource.extractRecipeFromUrl(url) 
-            if (extractedRecipe != null) {
-                Log.d("RecipeRepositoryImpl", "Successfully extracted recipe: ${extractedRecipe.name}. Caching locally.")
-                localDataSource.saveRecipe(extractedRecipe) 
-                Result.success(extractedRecipe)
-            } else {
-                Log.w("RecipeRepositoryImpl", "Failed to extract recipe from URL or URL yielded no recipe.")
-                Result.failure(Exception("No recipe found at the provided URL or extraction failed."))
+        return when (val result = remoteDataSource.extractRecipeFromUrl(url)) {
+            is Either.Right -> {
+                val recipe = result.value
+                if (recipe != null) {
+                    // Save the recipe to local cache, but don't fail if it doesn't work
+                    localDataSource.saveRecipe(recipe)
+                        .onLeft { error ->
+                            Log.w("RecipeRepository", "Failed to cache extracted recipe: ${error.message}")
+                        }
+                    // Return the recipe even if caching failed
+                    recipe.right()
+                } else {
+                    AppError.NotFoundError("No recipe found at the provided URL").left()
+                }
             }
-        } catch (e: Exception) {
-            Log.e("RecipeRepositoryImpl", "Error extracting recipe from URL: ${e.message}", e)
-            Result.failure(e)
+            is Either.Left -> {
+                Log.e("RecipeRepository", "Failed to extract recipe: ${result.value.message}")
+                result
+            }
+        }
+    }
+
+    override suspend fun saveRecipe(recipe: Recipe): Either<AppError, Unit> {
+        Log.d("RecipeRepository", "Saving recipe: ${recipe.name}")
+        return localDataSource.saveRecipe(recipe).mapLeft { error ->
+            Log.e("RecipeRepository", "Failed to save recipe locally: ${error.message}")
+            error
         }
     }
 }

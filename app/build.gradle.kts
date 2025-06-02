@@ -85,6 +85,10 @@ dependencies {
     implementation(libs.androidx.room.external.antlr)
     ksp(libs.room.compiler)
     
+    // Arrow
+    implementation(libs.arrow.core)
+    implementation(libs.arrow.fx.coroutines)
+    
     // Hilt (Dagger)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

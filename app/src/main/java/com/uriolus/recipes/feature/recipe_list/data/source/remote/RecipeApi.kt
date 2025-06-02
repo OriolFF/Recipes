@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  * Data transfer object for recipe data from the API
  */
 @Serializable
-data class RecipeDto(
+data class RecipeApi(
     val id: String,
     val name: String,
     val description: String? = null,
@@ -23,7 +23,7 @@ data class RecipeDto(
 /**
  * Extension function to convert RecipeDto to domain Recipe model
  */
-fun RecipeDto.toDomain(): Recipe {
+fun RecipeApi.toDomain(): Recipe {
     return Recipe(
         id = id,
         name = name,

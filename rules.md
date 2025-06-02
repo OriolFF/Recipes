@@ -3,7 +3,7 @@
 This is an app about storing links to recipes. It will have a list of already stored recipes with 
 an image as thumbnail and a short description.
 
-The recipes will be obtained from an End point
+The recipes will be obtained from an End point.
 
 # Technical stack
 
@@ -20,10 +20,10 @@ turbine
 # Architecture
 
 MVI , Clean code, with a presentation layer, a domain layer and a data layer. with a package per feature
-Each feature will have the 3 layers
+Each feature will have the 3 layers: domain, presentation and data
 
 # Important
 
 Be concise, only add comments when is very relevant.
 Don't add text in the files, use strings.xml instead
-
+Don't add comments unless is very necessary 

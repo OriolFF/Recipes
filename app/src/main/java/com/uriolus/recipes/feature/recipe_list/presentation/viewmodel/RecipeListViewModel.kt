@@ -2,7 +2,7 @@ package com.uriolus.recipes.feature.recipe_list.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.uriolus.recipes.core.data.remote.AuthenticationException
+import com.uriolus.recipes.core.model.AppError
 import com.uriolus.recipes.feature.auth.domain.use_case.LogoutUseCase
 import com.uriolus.recipes.feature.recipe_list.domain.use_case.GetRecipesUseCase
 import com.uriolus.recipes.feature.recipe_list.presentation.state.RecipeListAction
@@ -44,28 +44,27 @@ class RecipeListViewModel @Inject constructor(
 
     private fun loadRecipes() {
         viewModelScope.launch {
-            _state.value = _state.value.copy(isLoading = true, error = null)
-            try {
-                val recipes = getRecipesUseCase.exec()
-                _state.value = _state.value.copy(
-                    recipes = recipes,
-                    isLoading = false,
-                    authenticationErrorOccurred = false // Reset on successful load
-                )
-            } catch (e: Exception) {
-                if (e is AuthenticationException) {
+            _state.value = _state.value.copy(isLoading = true, error = null, authenticationErrorOccurred = false)
+            
+            getRecipesUseCase.exec().fold(
+                ifLeft = { appError ->
+                    val errorMessage = appError.message ?: "An unknown error occurred"
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        error = e.message ?: "Authentication error",
-                        authenticationErrorOccurred = true
+                        error = errorMessage,
+                        recipes = emptyList(), // Clear recipes on error
+                        authenticationErrorOccurred = appError is AppError.UnauthorizedError
                     )
-                } else {
+                },
+                ifRight = { recipes ->
                     _state.value = _state.value.copy(
+                        recipes = recipes,
                         isLoading = false,
-                        error = e.message ?: "Unknown error occurred"
+                        error = null, // Clear error on success
+                        authenticationErrorOccurred = false
                     )
                 }
-            }
+            )
         }
     }
 

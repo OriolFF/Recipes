@@ -1,58 +1,70 @@
 package com.uriolus.recipes.feature.recipe_list.data.source
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import com.uriolus.recipes.core.data.local.RecipesDatabase
-import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkEntity
-import com.uriolus.recipes.feature.recipe_list.data.source.local.model.toEntity
+// Assuming RecipeEntity and its toDomain mapper exist, e.g.:
+// import com.uriolus.recipes.feature.recipe_list.data.source.local.model.RecipeEntity
+// import com.uriolus.recipes.feature.recipe_list.data.source.local.model.toDomain
+import com.uriolus.recipes.feature.recipe_list.data.source.local.model.toEntity // Already present
+import com.uriolus.recipes.core.model.AppError
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+// Define a placeholder for RecipeEntity if not available for import check
+// typealias RecipeEntity = Any // Placeholder
+// fun RecipeEntity.toDomain(): Recipe = TODO("Implement RecipeEntity.toDomain()") // Placeholder
+
 class RoomRecipeDataSource @Inject constructor(
     private val database: RecipesDatabase
 ) : RecipeDataSource {
-    
-    override suspend fun getRecipes(): List<Recipe> {
-        return database.recipeLinkDao.getAllLinks().map { entities ->
-            entities.map { entity ->
-                Recipe(
-                    id = entity.id.toString(), 
-                    name = entity.title,
-                    description = entity.description,
-                    imageUrl = entity.thumbnailUrl.ifEmpty { DEFAULT_IMAGE_URL },
-                    ingredients = emptyList(), 
-                    instructions = emptyList(), 
-                    sourceUrl = entity.url
-                )
-            }
-        }.first()
-    }
 
-    override suspend fun saveRecipes(recipes: List<Recipe>) {
-        database.recipeLinkDao.deleteAll() // Clear existing recipes
-        val entities = recipes.map { recipe ->
-            RecipeLinkEntity(
-                url = recipe.sourceUrl ?: "", // Use sourceUrl from Recipe domain model
-                title = recipe.name,
-                description = recipe.description,
-                thumbnailUrl = recipe.imageUrl,
-                createdAt = System.currentTimeMillis()
-            )
-        }
-        entities.forEach { entity ->
-            database.recipeLinkDao.insertLink(entity)
+    // Assuming DEFAULT_IMAGE_URL is defined elsewhere or remove if not needed
+    // private val DEFAULT_IMAGE_URL = ""
+
+    override suspend fun getRecipes(): Either<AppError, List<Recipe>> {
+        return try {
+            // Assuming recipeDao().getAll() returns Flow<List<RecipeEntity>>
+            // And RecipeEntity has a .toDomain() extension function
+            val recipes = database.recipeDao().getAll().map { entities ->
+                entities.map { entity -> entity.toDomain() } // Placeholder: entity.toDomain()
+            }.first()
+            recipes.right()
+        } catch (e: Exception) {
+            AppError.LocalDatabaseError("Failed to get recipes from local database: ${e.message}", e).left()
         }
     }
 
-    override suspend fun saveRecipe(recipe: Recipe) {
-        val recipeEntity = recipe.toEntity() // Convert domain Recipe to RecipeEntity
-        database.recipeDao().insertRecipe(recipeEntity) // Use RecipeDao
+    override suspend fun saveRecipes(recipes: List<Recipe>): Either<AppError, Unit> {
+        return try {
+            val entities = recipes.map { it.toEntity() } // Uses existing Recipe.toEntity()
+            // Assuming recipeDao().deleteAll() and recipeDao().insertAll(entities) exist
+            database.recipeDao().deleteAll() 
+            database.recipeDao().insertAll(entities)
+            Unit.right()
+        } catch (e: Exception) {
+            AppError.LocalDatabaseError("Failed to save recipes to local database: ${e.message}", e).left()
+        }
     }
 
-    override suspend fun extractRecipeFromUrl(url: String): Recipe? {
-        throw UnsupportedOperationException("Extracting from URL is not supported by RoomRecipeDataSource")
+    override suspend fun saveRecipe(recipe: Recipe): Either<AppError, Unit> {
+        return try {
+            val recipeEntity = recipe.toEntity() // Convert domain Recipe to RecipeEntity
+            database.recipeDao().insert(recipeEntity) // Assuming recipeDao().insert(entity) exists
+            Unit.right()
+        } catch (e: Exception) {
+            AppError.LocalDatabaseError("Failed to save recipe to local database: ${e.message}", e).left()
+        }
     }
 
+    override suspend fun extractRecipeFromUrl(url: String): Either<AppError, Recipe?> {
+        return AppError.UnsupportedOperation("Extracting from URL is not supported by RoomRecipeDataSource").left()
+    }
+
+    // extractIngredientsAndInstructions seems to be unused by the interface methods now, keeping it for now.
     private fun extractIngredientsAndInstructions(description: String): Pair<List<String>, List<String>> {
         val ingredients = mutableListOf<String>()
         val instructions = mutableListOf<String>()

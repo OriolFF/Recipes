@@ -10,9 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -43,13 +40,14 @@ class RecipeDetailViewModel @Inject constructor(
     private fun loadRecipe(id: String) {
         _state.update { it.copy(isLoading = true, error = null) }
         viewModelScope.launch {
-            val recipe = getRecipeByIdUseCase.exec(id)
+            getRecipeByIdUseCase.exec(id)
+                .fold({ error ->
+                    _state.update { it.copy(error = error.message, isLoading = false) }
+                }, { recipe ->
+                    _state.update { it.copy(recipe = recipe, isLoading = false) }
+                })
 
-            if (recipe != null) {
-                _state.update { it.copy(recipe = recipe, isLoading = false) }
-            } else {
-                _state.update { it.copy(error = "Recipe not found", isLoading = false) }
-            }
+
         }
 
     }

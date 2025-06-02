@@ -1,27 +1,19 @@
 package com.uriolus.recipes.feature.recipe_list.domain.use_case
 
-import com.uriolus.recipes.feature.links_list.data.source.local.RecipeLinkEntity
-import com.uriolus.recipes.feature.links_list.domain.repository.RecipeLinkRepository
+import arrow.core.Either
+import com.uriolus.recipes.core.model.AppError
 import com.uriolus.recipes.feature.recipe_list.domain.model.Recipe
+import com.uriolus.recipes.feature.recipe_list.domain.repository.RecipeRepository
 import javax.inject.Inject
 
 class SaveRecipeUseCase @Inject constructor(
-    private val recipeLinkRepository: RecipeLinkRepository
+    private val recipeRepository: RecipeRepository
 ) {
-    suspend operator fun invoke(recipe: Recipe): Result<Unit> {
-        return try {
-            val entity = RecipeLinkEntity(
-                id = recipe.id.toLongOrNull() ?: 0L,
-                title = recipe.name,
-                description = recipe.description,
-                thumbnailUrl = recipe.imageUrl?:"",
-                url = recipe.imageUrl?:"",
-                createdAt = System.currentTimeMillis()
-            )
-            recipeLinkRepository.insertLink(entity.toRecipeLink())
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+    suspend operator fun invoke(recipe: Recipe): Either<AppError, Unit> {
+        // Input validation for the recipe can be added here if needed
+        // For example, check if recipe.title is not blank, etc.
+        // If validation fails, return an AppError.ValidationError.left()
+
+        return recipeRepository.saveRecipe(recipe)
     }
 }

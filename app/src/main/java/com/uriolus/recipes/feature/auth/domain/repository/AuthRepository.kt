@@ -1,8 +1,10 @@
 package com.uriolus.recipes.feature.auth.domain.repository
 
 import com.uriolus.recipes.core.data.remote.dto.TokenResponse
-import com.uriolus.recipes.core.common.Resource // Assuming Resource is in core.common
+import arrow.core.Either
+import com.uriolus.recipes.core.model.AppError
+
 
 interface AuthRepository {
-    suspend fun login(username: String, password: String): Resource<TokenResponse>
+    suspend fun login(username: String, password: String): Either<AppError, TokenResponse>
 }
